@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+    <head>
+        <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="js/jquery.qrcode-0.12.0.min.js"></script>
+        <script type="text/javascript" src="js/vex.js"></script>
+        <script type="text/javascript" src="js/vex.dialog.js"></script>
+        <script type="text/javascript">
+            vex.defaultOptions.className = 'vex-theme-os';
+            jQuery.noConflict();
+        </script>
+        <script type="text/javascript" src="js/jsrsasign-4.9.2-all-min.js"></script>
+        <script type="text/javascript" src="js/pdf.js"></script>
+        <script type="text/javascript">
+            PDFJS.workerSrc = "js/pdf.worker.js";
+        </script>
+	    <script type="text/javascript" src="js/prototype.js"></script>
+	    <script type="text/javascript" src="js/scriptaculous.js?load=builder,effects"></script>
+	    <script type="text/javascript" src="js/modalbox.js"></script>
+	    <script type="text/javascript" src="js/networkconnection.js"></script>
+	    <script type="text/javascript" src="js/slightutils.js"></script>
+        <script type="text/javascript" src="js/qrcode.js"></script>
+        <script type="text/javascript" src="js/quick.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/slightlayout2.css">
+        <link rel="stylesheet" type="text/css" href="css/modalbox.css">
+        <link rel="shortcut icon" href="/favicon.png" type="image/png">
+
+        <meta property="og:image" content="https://slightsync.appspot.com/slightsynclogo2.png" />
+        <meta property="og:url" content="https://slightsync.appspot.com" />
+        <meta property="og:description" content="View slides or photos in a synchronized way together with other people."/>
+        <meta property="og:site_name" content="SlightSync" />
+        <meta property="og:title" content="SlightSync" />
+        
+        <meta name="title" content="SlightSync" />
+        <meta name="description" content="View slides or photos in a synchronized way together with other people."/>
+        <link rel="image_src" content="https://slightsync.appspot.com/slightsynclogo2.png" />
+        <link rel="stylesheet" href="css/vex.css">
+        <link rel="stylesheet" href="css/vex-theme-os.css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+    </head>
+    <body onload="main()">
+        <div class="tinyHeader">
+            <span class="tinyHeaderLeft" onclick="window.open('/', '_blank');">&nbsp;SlightSync</span>
+            <span class="tinyHeaderRight" onclick="window.open('/about','_blank');">About&nbsp;</span>
+        </div>
+
+	<table class="hOuterTable"><tr class="hZeroMarginPadding"><td class="hFancyBox">
+	<table class="hZeroMarginPadding">
+		<tr class="hZeroMarginPadding">
+            <td class="hTitleText">
+	            <span>About</span>
+            </td>
+		</tr>
+	</table>
+	</td></tr></table>
+
+    <div class="normal">
+
+        <p>The goal of SlightSync is to be able to watch a presentation from a PDF file together with
+        people at different locations. To do so, the PDF file must be accessible from a web link. Known
+        to work without <a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing">cross origin</a>
+        problems are PDF files hosted as a shared file on <a href="https://www.dropbox.com">Dropbox</a>.
+
+        <h2>SlightSync URL options</h2>
+        <p>
+        When you create a new SlightSync URL, the location of the PDF file and the synchronization
+        server to be used are both stored in the URL, which will look something like</p>
+        <p>
+        <code>
+            https://slightsync.appspot.com/sync.html#id=eyJwZGZVcmwiOiJodHRwczovL2RsLmRyb3Bib3h1c2...
+        </code>
+        </p>
+        <p>
+        where the <tt>id=</tt> part is the string that identifies your slides (either master or slave
+        version).
+        </p>
+
+        <p>While the synchronization server to use is stored in this identifier, you can still
+        easily override this by appending <tt>&server=</tt> to the URL, followed by which 
+        WebSocket URL you want to use. For example appending <tt>&server=wss://slightsync.edm.uhasselt.be/</tt> would 
+        use that specific server.
+        </p>
+
+        <h2>Limits and security</h2>
+
+        <p>The final URLs to the slides are just difficult URLs. They encode the information needed
+        to view the PDF file in a synchronized way (location of the PDF and synchronization server options)
+        and should be quite difficult to guess. And this is the only security precaution there is, there are no
+        logins or passwords involved, so don't give the URLs to someone that should not see the slides.
+        </p>
+        <p>The URLs are not stored anywhere, so if you lose them, they're lost forever. But a new
+        set of URLs can easily be created again of course.
+        </p>
+        
+        <h2>JavaScript, Python, CSS used</h2>
+        <p>Here's a list of things I used to make this application:
+        <ul>
+            <li>The nice dialog boxes that appear from time to time: 
+                <a href="http://wildbit.com/labs/modalbox/">modalbox</a></li>
+            <li>Needed by 'modalbox' and for some other effects:
+                <a href="http://script.aculo.us">scriptaculous and prototype</a></li>
+            <li>Additional dialog boxes: <a href="http://github.hubspot.com/vex/docs/welcome/">Vex</a></li>
+            <li>Needed by the previous plugin and for some general scripting: 
+                <a href="http://jquery.com/">jQuery</a></li>
+            <li>To render PDF files in the browser: 
+                <a href="http://mozilla.github.io/pdf.js/">pdf.js</a></li>
+            <li>Create QR tags for URLs: 
+                <a href="https://github.com/kazuhikoarase/qrcode-generator">qrcode.js</a></li>
+            <li>Detect gestures on mobile devices: 
+                <a href="http://hammerjs.github.io/recognizer-swipe/">Hammer.js</a></li>
+            <li>CSS inspiration for the headers on the page comes from this page: 
+                <a href="http://tympanus.net/codrops/2012/11/02/heading-set-styling-with-css/">see example two</a></li>
+            <li>Nice CSS input boxes:
+                <a href="http://callmenick.com/post/various-css-input-text-styles">using the 'Glow' style</a></li>
+            <li>For displaying the screenshots on the main page:
+                <a href="http://lokeshdhakar.com/projects/lightbox2/">Lightbox</a></li>
+        </ul>
+        </p>
+
+        <h2>Who?</h2>
+        <p>These are some pages that will surely reveal my identity and provide you with ways to contact me.
+        <ul>
+            <li>My Google+ page: <a href="https://plus.google.com/107709244254418689195/about">here</a>
+            <li>My research page: <a href="http://research.edm.uhasselt.be/jori/">here</a></li>
+        </ul>
+        </p>
+        </div>
+
+    </body>
+</html>

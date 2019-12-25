@@ -1,0 +1,177 @@
+body, html {
+	  margin: 0px;
+	  background: white;
+	  line-height: 1.4;
+}
+
+strong {
+	color: #355681;
+}
+
+h1 {
+	margin: 1em 5px 0.5em 5px;
+	font-weight: bold;
+	font-family: 'Open Sans', sans-serif;
+	position: relative;  
+	font-size: 36px;
+	line-height: 40px;
+	padding: 15px 15px 55px 15px;
+	color: #355681;
+	box-shadow: 
+	inset 0 0 0 1px rgba(53,86,129, 0.4), 
+	inset 0 0 5px rgba(53,86,129, 0.5),
+	inset -285px 0 35px white;
+	/*border-radius: 0 10px 0 10px;*/
+}
+#alignleft {
+	float: left;
+}
+#alignright {
+	font-weight: bold;
+	font-size: 14px;
+	color: #355681;
+	float: right;
+}
+#signinoutbutton {
+	display:inline;
+	font-weight: bold;
+	padding: 15px 15px 15px 15px;
+	color: #ffffff;
+	background-color: #aa2000;
+	cursor: hand;
+	cursor: pointer;
+}
+
+a { 
+	font-weight: bold;
+	text-decoration: none;
+}
+
+h2 {
+	margin: 0.5em 0 0.5em 0;
+	font-weight: normal;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 24px;
+	color: #000070;
+	padding: 0px 0px 0px 15px;
+}
+
+h3 {
+	margin: 0.5em 0 0.5em 0;
+	font-weight: normal;
+	font-style: italic;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 18px;
+	color: #000040;
+	padding: 0px 0px 0px 15px;
+}
+
+h4 {
+	margin: 0.5em 0 0.5em 0;
+	font-weight: normal;
+	font-style: bold;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
+	color: #000040;
+	padding: 0px 0px 0px 15px;
+}
+
+p {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
+	padding: 0px 15px 0px 15px;
+	text-align:justify;
+}
+
+li { 
+	font-family: 'Open Sans', sans-serif; 
+	font-size: 16px; 
+	padding-bottom: 8px;
+}
+
+.normal {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
+	padding: 0px 15px 0px 15px;
+	text-align:justify;
+}
+
+.hTitleText {
+	font-weight: bold;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 36px;
+	color: #355681;
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+	white-space: nowrap;
+}
+
+.hOuterTable {
+	margin: 0 0 0 0;
+	padding: 1em 4px 0em 4px;
+	width: 100%;
+}
+
+.hZeroMarginPadding {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	width: 100%;
+}
+
+.hFancyBox {
+	margin: 15px 15px 15px 15px;
+	padding: 10px 10px 10px 10px;
+	box-shadow: 
+	inset 0 0 0 1px rgba(53,86,129, 0.4), 
+	inset 0 0 5px rgba(53,86,129, 0.5),
+	inset -285px 0 35px white;
+	width: 100%;
+}
+
+.hSignInOut {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: bold;
+	font-size: 14px;
+	color: #355681;
+	text-align: right;
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+	white-space: nowrap;
+}
+
+.tinyHeader {
+	position: absolute; 
+	top: 0px; 
+	left 0px; 
+	width: 100%; 
+	font-weight: bold; 
+	font-family: 'Open Sans', sans-serif; 
+	font-size: 11px; 
+	color: #ffffff; 
+	background: #355681;
+}
+
+.tinyHeaderLeft {
+	float: left;
+	cursor: hand;
+	cursor: pointer;
+}
+
+.tinyHeaderRight {
+	float: right;
+	cursor: hand;
+	cursor: pointer;
+}
+
+code, tt {
+   margin: 0 2px;
+   padding: 0 5px;
+   white-space: nowrap;
+   border: 1px solid #eaeaea;
+   background-color: #f8f8f8;
+   border-radius: 3px; }
+
+.defaultHidden {
+   display: none;
+}
+

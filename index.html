@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+    <head>
+        <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="js/vex.js"></script>
+        <script type="text/javascript" src="js/vex.dialog.js"></script>
+        <script type="text/javascript">
+            vex.defaultOptions.className = 'vex-theme-os';
+            jQuery.noConflict();
+        </script>
+        <script type="text/javascript" src="js/jsrsasign-4.9.2-all-min.js"></script>
+        <script type="text/javascript" src="js/pdf.js"></script>
+        <script type="text/javascript">
+            PDFJS.workerSrc = "js/pdf.worker.js";
+        </script>
+	    <script type="text/javascript" src="js/prototype.js"></script>
+	    <script type="text/javascript" src="js/scriptaculous.js?load=builder,effects"></script>
+	    <script type="text/javascript" src="js/modalbox.js"></script>
+	    <script type="text/javascript" src="js/networkconnection.js"></script>
+	    <script type="text/javascript" src="js/slightutils.js"></script>
+        <script type="text/javascript" src="js/qrcode.js"></script>
+        <script type="text/javascript" src="js/quick.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/slightlayout2.css">
+        <link rel="stylesheet" type="text/css" href="css/modalbox.css">
+        <link rel="stylesheet" type="text/css" href="css/lightbox.css">
+        <link rel="shortcut icon" href="/favicon.png" type="image/png">
+
+        <meta property="og:image" content="https://j0r1.github.io/SlightSync/slightsynclogo2.png" />
+        <meta property="og:url" content="https://j0r1.github.io/SlightSync/" />
+        <meta property="og:description" content="View slides or photos in a synchronized way together with other people."/>
+        <meta property="og:site_name" content="SlightSync" />
+        <meta property="og:title" content="SlightSync" />
+        
+        <meta name="title" content="SlightSync" />
+        <meta name="description" content="View slides or photos in a synchronized way together with other people."/>
+        <link rel="image_src" content="https://j0r1.github.io/SlightSync/slightsynclogo2.png" />
+        <link rel="stylesheet" href="css/vex.css">
+        <link rel="stylesheet" href="css/vex-theme-os.css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+    </head>
+    <body onload="main()" itemscope itemtype="http://schema.org/Product">
+
+        <div itemprop="name" style="display:none;">SlightSync</div>
+        <img itemprop="image" style="display:none;" src="https://j0r1.github.io/SlightSync/slightsynclogo2.png">
+        <div itemprop="description" style="display:none;">View slides or photos in a synchronized way together with other people.</div>
+
+        <div class="tinyHeader">
+            <span class="tinyHeaderLeft">&nbsp;SlightSync</span>
+            <span class="tinyHeaderRight" onclick="window.open('about.html','_blank');">About&nbsp;</span>
+        </div>
+
+	<table class="hOuterTable"><tr class="hZeroMarginPadding"><td class="hFancyBox">
+	<table class="hZeroMarginPadding">
+		<tr class="hZeroMarginPadding">
+            <td class="hTitleText">
+                <span>Sl</span><span id="bulbelem" style="background-repeat: no-repeat;">&#x0131;g</span><span>htSync: view slides together</span>
+            </td>
+		</tr>
+	</table>
+	</td></tr></table>
+
+    <div class="normal" id="loadingdiv"><p>Loading...</p></div>
+    <div class="normal" id="maindiv" style="display: none;">
+
+        <table style="float: right; width: 20%; border: 0px; margin-left: 10px;">
+            <tr>
+                <td id="qrdiv">
+                </td>
+            </tr>
+        </table>
+
+        <p>SlightSync allows synchronized viewing of the slides/pages from a PDF file by just
+        opening the same URL at different locations.</p>
+
+        <p> To get started, the PDF file must be accessible over the internet,
+        and the link should be entered below. 
+        Due to <a href="https://en.wikipedia.org/wiki/Cross-origin_resource_sharing" target="_blank">cross origin</a>
+        limitations, it may not be possible to use any PDF location: the server where it's stored must
+        allow the scripts on this page to download the file. Known to work are
+            <ul>
+                <li>Shared URLs from files stored on <a href="https://www.dropbox.com" target="_blank">Dropbox</a>:
+                instruction <a href="/img/dropboxscreenshot1.png" data-lightbox="screenshotsdropbox">screenshots</a>
+                <a href="/img/dropboxscreenshot2.png" data-lightbox="screenshotsdropbox" style="display:none;">screenshot 2</a></li>
+                <a href="/img/dropboxscreenshot3.png" data-lightbox="screenshotsdropbox" style="display:none;">screenshot 3</a></li>
+            </ul>
+        </p>
+        
+        <p>Many thanks to the <a href="http://www.uhasselt.be/edm" target="_blank">Expertise Centre for Digital Media (EDM)</a>
+        for hosting the default synchronization server. However, if you don't want to use this default synchronization
+        server you can <a href="/slightsockcast/slightsockcast-0.3.2.js" download>download</a> it and 
+        install it on your own server.
+        This is a <a href="https://nodejs.org" target="_blank">Node.js</a> version
+        and needs the <a href="https://www.npmjs.com/package/websocket" target="_blank">websocket</a> 
+        and <a href="https://www.npmjs.com/package/node-rsa" target="_blank">node-rsa</a> packages.
+        </p>
+
+
+        <table style="width:calc(100%-288px);white-space:nowrap;" class="style-1">
+            <tr>
+                <td><a href="#" onclick="openUrl(jQuery('#pdfurl').val()); return false; ">PDF Location: </a></td>
+                <td style="width:100%;"><form action="#" onsubmit="generateUrls(); return false;"><input type="text" id="pdfurl" value="" style="width:99%" placeholder="Enter the URL of your PDF here" autofocus></form></td>
+                <td><button onclick="generateUrls()">Generate!</button></td>
+            </tr>
+            <tr>
+                <td><a href="#" onclick="openUrl(jQuery('#serverurl').val()); return false; ">Sync server: </a></td>
+                <td><input type="text" id="serverurl" value="wss://slightsync.edm.uhasselt.be/" list="serverlist" style="width: 99%">
+                    <datalist id="serverlist">
+                        <option>wss://slightsync.edm.uhasselt.be/</option>
+                    </datalist>
+                </td>
+                <td><input type="checkbox" checked id="conncheck">Check connection</td>
+            </tr>
+            <tr class="defaultHidden"><td colspan="3"><h2>SlightSync URLs</h2></td></tr>
+            <tr class="defaultHidden">
+                <td><a href="#" onclick="openUrl(jQuery('#masterurl').val()); return false; ">Master URL: </a></td>
+                <td><input type="text" id="masterurl" value="" style="width:99%;" readonly></td>
+                <td>
+                    <button onclick="openUrl(jQuery('#masterurl').val())">Open</button>
+                    <button onclick="copyToClipboard(jQuery('#masterurl').val())">Copy</button>
+                    <button onclick="showQR('masterqrdlg','Master URL')">QR</button>
+                    <button onclick="openUrl(getTinyUrl(jQuery('#masterurl').val()))">TinyURL</button>
+                </td>
+            </tr>
+            <tr class="defaultHidden">
+                <td><a href="#" onclick="openUrl(jQuery('#slaveurl').val()); return false; ">Slave URL: </a></td>
+                <td><input type="text" id="slaveurl" value="" style="width:99%;" readonly></td>
+                <td>
+                    <button onclick="openUrl(jQuery('#slaveurl').val())">Open</button>
+                    <button onclick="copyToClipboard(jQuery('#slaveurl').val())">Copy</button>
+                    <button onclick="showQR('slaveqrdlg','Slave URL')">QR</button>
+                    <button onclick="openUrl(getTinyUrl(jQuery('#slaveurl').val()))">TinyURL</button><br>
+                </td>
+            </tr>
+        </table>
+
+        <div class="defaultHidden" style="clear:both;">
+            <p>Congratulations! You did it!
+            You now have created two URLs that can be used for shared, synchronized viewing
+            of the PDF file. Feel free to open them right now for a quick test.</p>
+
+            <p>Everyone who opens the <em>Master</em> URL will always be able to change the page,
+            and will always be able to show an indicator at some position. By default, people who
+            open the <em>Slave</em> URL will be able to view the selected page, but will not
+            be able to change it. However, the masters can of course grant permission for these actions.
+        </div>
+    </div>
+
+	<div style="display:none;" id="generatingdlg">
+		<div id="generatestatus">&nbsp;</div><br>
+		<div><button onclick="onCancel();">Cancel</button></div>
+	</div>
+
+	<div style="display:none;" id="masterqrdlg">
+        <center>
+            <div id="masterqrdiv"></div>
+        </center>
+	</div>
+	<div style="display:none;" id="slaveqrdlg">
+        <center>
+            <div id="slaveqrdiv"></div>
+        </center>
+	</div>
+
+    <script type="text/javascript" src="js/lightbox.min.js"></script>
+    </body>
+</html>
+
